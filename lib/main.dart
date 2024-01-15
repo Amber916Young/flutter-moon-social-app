@@ -28,6 +28,7 @@ import 'di_container.dart' as di;
 import 'src/core/provider/localization_provider.dart';
 import 'src/core/provider/theme_provider.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> main() async {
   if (ResponsiveHelper.isMobilePhone()) {
@@ -75,6 +76,7 @@ Future<void> main() async {
   } catch (e) {
     debugPrint('error ===> $e');
   }
+  timeago.setLocaleMessages('zh_CN', timeago.ZhCnMessages());
 
   runApp(MultiProvider(
     providers: [
