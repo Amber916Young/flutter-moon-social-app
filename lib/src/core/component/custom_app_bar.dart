@@ -6,10 +6,14 @@ import 'package:moon/src/core/helper/responsive_helper.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool isBackButtonExist;
+  final bool hasAction;
+  final bool hasLeading;
   final Function? onBackPressed;
   final BuildContext context;
-
-  const CustomAppBar({Key? key, required this.title, this.isBackButtonExist = true, this.onBackPressed, required this.context}) : super(key: key);
+  final List<Widget>? actions;
+  final Widget? leadingWidget;
+  final Widget? flexibleSpace;
+  const CustomAppBar({Key? key, this.flexibleSpace, required this.title, this.leadingWidget, this.actions, this.hasLeading = false, this.hasAction = false, this.isBackButtonExist = true, this.onBackPressed, required this.context}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,25 +22,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Container(
                 color: Theme.of(context).cardColor,
                 width: 1170,
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                  ],
+                  children: [],
                 )),
           )
         : AppBar(
-            title: Text(title!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).textTheme.bodyLarge!.color)),
+            title: Text(title ?? "", style: Theme.of(context).textTheme.titleMedium),
             centerTitle: true,
-            leading: isBackButtonExist
-                ? IconButton(
-                    icon: const Icon(Icons.arrow_back_ios),
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
-                    onPressed: () => onBackPressed != null ? onBackPressed!() : Navigator.of(context).maybePop(),
-                  )
-                : const SizedBox(),
-            backgroundColor: Theme.of(context).cardColor,
+            actions: actions,
+            leading: hasLeading
+                ? leadingWidget
+                : isBackButtonExist
+                    ? IconButton(
+                        icon: const Icon(Icons.arrow_back_ios),
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        onPressed: () => onBackPressed != null ? onBackPressed!() : Navigator.of(context).maybePop(),
+                      )
+                    : const SizedBox(),
             elevation: 0,
+            flexibleSpace: flexibleSpace,
           );
   }
 

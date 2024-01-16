@@ -6,6 +6,8 @@ import 'package:moon/src/core/component/custom_snackbar.dart';
 import 'package:moon/src/core/route/routes.dart';
 import 'package:moon/src/features/auth/presentation/screen/login_screen.dart';
 import 'package:moon/src/features/auth/presentation/screen/phone_login_screen.dart';
+import 'package:moon/src/features/message/presentation/chat_screen.dart';
+import 'package:moon/src/features/message/presentation/message_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:moon/src/features/auth/presentation/screen/register_screen.dart';
 import 'package:moon/src/features/home/presentation/home_detail_screen.dart';
@@ -47,6 +49,12 @@ class RouterHelper {
   static final Handler _videoScreenHandler = Handler(
     handlerFunc: (context, Map<String, dynamic> params) => _routeHandler(context!, VideoScreen()),
   );
+  static final Handler _messageScreenHandler = Handler(
+    handlerFunc: (context, Map<String, dynamic> params) => _routeHandler(context!, MessageScreen()),
+  );
+  static final Handler _chatMessageScreenHandler = Handler(
+    handlerFunc: (context, Map<String, dynamic> params) => _routeHandler(context!, ChatMessageScreen()),
+  );
   static final Handler _languageHandler = Handler(handlerFunc: (context, Map<String, dynamic> params) {
     return ChooseLanguageScreen(fromMenu: params['page'][0] == 'menu');
   });
@@ -63,6 +71,8 @@ class RouterHelper {
     router.define(Routes.homeDetailScreen, handler: _homeDetailScreenHandler, transitionType: TransitionType.fadeIn);
     router.define(Routes.videoScreen, handler: _videoScreenHandler, transitionType: TransitionType.fadeIn);
     router.define(Routes.languageScreen, handler: _languageHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.messageScreen, handler: _messageScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.chatMessageScreen, handler: _chatMessageScreenHandler, transitionType: TransitionType.fadeIn);
   }
 
   static Widget _routeHandler(BuildContext context, Widget route, {bool isBranchCheck = false}) {

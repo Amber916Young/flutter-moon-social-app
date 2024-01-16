@@ -83,6 +83,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
         showDrawer: true,
         endDrawerEnableOpenDragGesture: true,
         key: _scaffoldKey,
+        appBar: CustomAppBar(
+          context: context,
+          title: getTranslated('my_profile', context),
+          isBackButtonExist: false,
+          hasAction: true,
+          hasLeading: true,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.message_outlined, size: 20),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.help,
+                size: 20,
+              ),
+              onPressed: () {},
+            )
+          ],
+          leadingWidget: IconButton(
+            icon: const Icon(Icons.settings_outlined, size: 20),
+            onPressed: () {},
+          ),
+        ),
         body: Stack(
           children: [
             Container(
@@ -93,28 +117,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             CustomScrollView(slivers: [
-              SliverAppBar(
-                pinned: true,
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.message_outlined, size: 20),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.help,
-                      size: 20,
-                    ),
-                    onPressed: () {},
-                  )
-                ],
-                backgroundColor: Theme.of(context).cardColor,
-                elevation: 0,
-                leading: IconButton(
-                  icon: const Icon(Icons.settings_outlined, size: 20),
-                  onPressed: () {},
-                ),
-              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),

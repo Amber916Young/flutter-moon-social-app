@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moon/src/core/component/portal_master_layout.dart';
 import 'package:provider/provider.dart';
 import 'package:moon/localization/language_constrants.dart';
 import 'package:moon/src/core/component/custom_button.dart';
@@ -23,86 +24,91 @@ class ChooseLanguageScreen extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     Provider.of<LanguageProvider>(context, listen: false).initializeAllLanguages(context);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Container(
-            padding: width > 700 ? const EdgeInsets.all(Dimensions.paddingSizeLarge) : EdgeInsets.zero,
-            child: Container(
-              width: width > 700 ? 700 : width,
-              padding: width > 700 ? const EdgeInsets.all(Dimensions.paddingSizeDefault) : null,
-              decoration: width > 700
-                  ? BoxDecoration(
-                      color: Theme.of(context).canvasColor,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [BoxShadow(color: Theme.of(context).shadowColor, blurRadius: 5, spreadRadius: 1)],
-                    )
-                  : null,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 30),
-                  Center(
-                    child: Container(
-                      width: 1170,
-                      padding: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, top: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge),
-                      child: Text(
-                        getTranslated('choose_the_language', context)!,
-                        style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 22, color: Theme.of(context).textTheme.bodyLarge!.color),
+    return PortalMasterLayout(
+        pageIndex: 4,
+        showDrawer: false,
+        showBottomBar: false,
+        endDrawerEnableOpenDragGesture: true,
+        body: Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: Container(
+                padding: width > 700 ? const EdgeInsets.all(Dimensions.paddingSizeLarge) : EdgeInsets.zero,
+                child: Container(
+                  width: width > 700 ? 700 : width,
+                  padding: width > 700 ? const EdgeInsets.all(Dimensions.paddingSizeDefault) : null,
+                  decoration: width > 700
+                      ? BoxDecoration(
+                          color: Theme.of(context).canvasColor,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [BoxShadow(color: Theme.of(context).shadowColor, blurRadius: 5, spreadRadius: 1)],
+                        )
+                      : null,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 30),
+                      Center(
+                        child: Container(
+                          width: 1170,
+                          padding: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, top: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge),
+                          child: Text(
+                            getTranslated('choose_the_language', context)!,
+                            style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 22, color: Theme.of(context).textTheme.bodyLarge!.color),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  Center(
-                    child: Container(
-                      width: 1170,
-                      padding: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge),
-                      child: const SearchWidget(),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  Consumer<LanguageProvider>(
-                      builder: (context, languageProvider, child) => Expanded(
-                              child: Scrollbar(
-                            child: SingleChildScrollView(
-                              physics: const BouncingScrollPhysics(),
-                              child: Center(
-                                child: SizedBox(
-                                  width: 1170,
-                                  child: ListView.builder(itemCount: languageProvider.languages.length, physics: const NeverScrollableScrollPhysics(), shrinkWrap: true, itemBuilder: (context, index) => _languageWidget(context: context, languageModel: languageProvider.languages[index], languageProvider: languageProvider, index: index)),
+                      const SizedBox(height: 30),
+                      Center(
+                        child: Container(
+                          width: 1170,
+                          padding: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge),
+                          child: const SearchWidget(),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      Consumer<LanguageProvider>(
+                          builder: (context, languageProvider, child) => Expanded(
+                                  child: Scrollbar(
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(),
+                                  child: Center(
+                                    child: SizedBox(
+                                      width: 1170,
+                                      child: ListView.builder(itemCount: languageProvider.languages.length, physics: const NeverScrollableScrollPhysics(), shrinkWrap: true, itemBuilder: (context, index) => _languageWidget(context: context, languageModel: languageProvider.languages[index], languageProvider: languageProvider, index: index)),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ))),
-                  Consumer<LanguageProvider>(
-                      builder: (context, languageProvider, child) => Center(
-                            child: Container(
-                              width: 1170,
-                              padding: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge, bottom: Dimensions.paddingSizeLarge),
-                              child: CustomButton(
-                                btnTxt: getTranslated('save', context),
-                                onTap: () {
-                                  // Provider.of<OnBoardingProvider>(context, listen: false).toggleShowOnBoardingStatus();
-                                  if (languageProvider.languages.isNotEmpty && languageProvider.selectIndex != -1) {
-                                    Provider.of<LocalizationProvider>(context, listen: false).setLanguage(Locale(
-                                      AppConstants.languages[languageProvider.selectIndex!].languageCode!,
-                                      AppConstants.languages[languageProvider.selectIndex!].countryCode,
-                                    ));
-                                    Navigator.pop(context);
-                                  } else {
-                                    showCustomSnackBar(getTranslated('select_a_language', context));
-                                  }
-                                },
-                              ),
-                            ),
-                          )),
-                ],
+                              ))),
+                      Consumer<LanguageProvider>(
+                          builder: (context, languageProvider, child) => Center(
+                                child: Container(
+                                  width: 1170,
+                                  padding: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge, bottom: Dimensions.paddingSizeLarge),
+                                  child: CustomButton(
+                                    btnTxt: getTranslated('save', context),
+                                    onTap: () {
+                                      // Provider.of<OnBoardingProvider>(context, listen: false).toggleShowOnBoardingStatus();
+                                      if (languageProvider.languages.isNotEmpty && languageProvider.selectIndex != -1) {
+                                        Provider.of<LocalizationProvider>(context, listen: false).setLanguage(Locale(
+                                          AppConstants.languages[languageProvider.selectIndex!].languageCode!,
+                                          AppConstants.languages[languageProvider.selectIndex!].countryCode,
+                                        ));
+                                        Navigator.pop(context);
+                                      } else {
+                                        showCustomSnackBar(getTranslated('select_a_language', context));
+                                      }
+                                    },
+                                  ),
+                                ),
+                              )),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   Widget _languageWidget({required BuildContext context, required LanguageModel languageModel, required LanguageProvider languageProvider, int? index}) {
@@ -130,7 +136,7 @@ class ChooseLanguageScreen extends StatelessWidget {
                   const SizedBox(width: 30),
                   Text(
                     languageModel.languageName!,
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(color: Theme.of(context).textTheme.bodyLarge!.color),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).textTheme.bodyLarge!.color),
                   ),
                 ],
               ),

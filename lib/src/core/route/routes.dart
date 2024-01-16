@@ -15,8 +15,8 @@ class Routes {
   static const String videoScreen = '/video';
   static const String searchScreen = '/search';
   static const String searchResultScreen = '/search-result';
-  static const String setMenuScreen = '/set-menu';
-  static const String cartCheckoutScreen = '/cart-checkout';
+  static const String messageScreen = '/message';
+  static const String chatMessageScreen = '/chat';
   static const String cartCheckoutViewScreen = '/cart-view';
   static const String categoryScreen = '/category';
   static const String notificationScreen = '/notification';
@@ -58,14 +58,15 @@ class Routes {
 
   static String getLanguageRoute(String page) => '$languageScreen?page=$page';
 
-  static String getOnBoardingRoute() => onBoardingScreen;
-
   static String getSignUpAndLoginRoute() => signUpAndLoginScreen;
 
   static String getLoginRoute() => loginScreen;
   static String getPhoneLoginRoute() => phoneLoginScreen;
   static String getRegisterRoute() => registerScreen;
   static String getProfileRoute() => profileScreen;
+  static String getMessageRoute() => messageScreen;
+  static String getChatMessageScreenRoute() => chatMessageScreen;
+
   static String getEditProfileRoute() => editProfileScreen;
 
   static String getHomeDetailScreen() => homeDetailScreen;
@@ -86,7 +87,6 @@ class Routes {
 
   static String getMaintainRoute() => maintain;
 
-
   static String getHomeRoute({required String fromAppBar}) {
     String appBar = fromAppBar;
     return '$homeScreen?from=$appBar';
@@ -101,7 +101,6 @@ class Routes {
 
   static String getVideoRoute() => videoScreen;
 
-  static String getCartCheckoutRoute() => cartCheckoutScreen;
   static String getCartCheckoutViewRoute() => cartCheckoutViewScreen;
 
   static String getNotificationRoute() => notificationScreen;
@@ -125,8 +124,6 @@ class Routes {
   static String getRateReviewRoute() => rateScreen;
 
   static String getOrderTrackingRoute(int? id) => '$orderTrackingScreen?id=$id';
-
-
 
   static String getWishListRoute() => wishListScreen;
 
