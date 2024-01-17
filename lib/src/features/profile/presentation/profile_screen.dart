@@ -79,461 +79,478 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return PortalMasterLayout(
-        pageIndex: 4,
-        showDrawer: true,
-        endDrawerEnableOpenDragGesture: true,
-        key: _scaffoldKey,
-        appBar: CustomAppBar(
-          context: context,
-          title: getTranslated('my_profile', context),
-          isBackButtonExist: false,
-          hasAction: true,
-          hasLeading: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.message_outlined, size: 20),
-              onPressed: () {},
+      pageIndex: 4,
+      showDrawer: true,
+      endDrawerEnableOpenDragGesture: true,
+      key: _scaffoldKey,
+      // appBar: CustomAppBar(
+      //   context: context,
+      //   title: getTranslated('my_profile', context),
+      //   isBackButtonExist: false,
+      //   hasAction: true,
+      //   hasLeading: true,
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(Icons.message_outlined, size: 20),
+      //       onPressed: () {},
+      //     ),
+      //     IconButton(
+      //       icon: const Icon(
+      //         Icons.help,
+      //         size: 20,
+      //       ),
+      //       onPressed: () {},
+      //     )
+      //   ],
+      //   leadingWidget: IconButton(
+      //     icon: const Icon(Icons.settings_outlined, size: 20),
+      //     onPressed: () {},
+      //   ),
+      //
+      // ),
+      body:
+          // Container(
+          //   height: height * .4,
+          //   decoration: BoxDecoration(
+          //     color: Provider.of<ThemeProvider>(context).darkTheme ? ColorResources.blackColor : ColorResources.colorLightGray, // Set the background color here
+          //     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(Dimensions.radiusLarge), bottomRight: Radius.circular(Dimensions.radiusLarge)), // Optional: Add rounded corners
+          //   ),
+          // ),
+          CustomScrollView(physics: const ClampingScrollPhysics(), slivers: [
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: ProfileAppBar(),
+        ),
+        // SliverAppBar(
+        //   expandedHeight: 200.0,
+        //   floating: false,
+        //   pinned: true,
+        //   centerTitle: true,
+        //   actions: [
+        //     IconButton(
+        //       icon: const Icon(Icons.message_outlined, size: 20),
+        //       onPressed: () {},
+        //     ),
+        //     IconButton(
+        //       icon: const Icon(
+        //         Icons.help,
+        //         size: 20,
+        //       ),
+        //       onPressed: () {},
+        //     )
+        //   ],
+        //   title: Text('${getTranslated('my_profile', context)}'),
+        //   leading: IconButton(
+        //     icon: const Icon(Icons.settings_outlined, size: 20),
+        //     onPressed: () {},
+        //   ),
+        //   flexibleSpace: FlexibleSpaceBar(
+        //     background: Stack(
+        //       fit: StackFit.expand,
+        //       children: [
+        //         Image.network(
+        //           'https://i.imgur.com/r6vIrtL.png',
+        //           fit: BoxFit.cover,
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault, vertical: Dimensions.paddingSizeSmall),
+            child: Row(
+              children: [
+                const CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 37,
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundImage: AssetImage(Images.logo),
+                  ),
+                ),
+                const SizedBox(
+                  width: Dimensions.paddingSizeDefault,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                "tothemoon",
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                              Text(
+                                "Piran, Slovenia",
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, Routes.getEditProfileRoute());
+                              },
+                              icon: Icon(
+                                Icons.keyboard_arrow_right_rounded,
+                                size: 20,
+                              ))
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
-            IconButton(
-              icon: const Icon(
-                Icons.help,
-                size: 20,
-              ),
-              onPressed: () {},
-            )
-          ],
-          leadingWidget: IconButton(
-            icon: const Icon(Icons.settings_outlined, size: 20),
-            onPressed: () {},
           ),
         ),
-        body: Stack(
+        const SliverToBoxAdapter(
+            child: SizedBox(
+          height: Dimensions.paddingSizeLarge,
+        )),
+        const SliverToBoxAdapter(
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
+              child: Text(
+                "简介：这简介这简介这简介这简介这简介这简介",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              )),
+        ),
+        const SliverToBoxAdapter(
+            child: SizedBox(
+          height: Dimensions.paddingSizeLarge,
+        )),
+        SliverToBoxAdapter(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              height: height * .4,
-              decoration: BoxDecoration(
-                color: Provider.of<ThemeProvider>(context).darkTheme ? ColorResources.blackColor : ColorResources.colorLightGray, // Set the background color here
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(Dimensions.radiusLarge), bottomRight: Radius.circular(Dimensions.radiusLarge)), // Optional: Add rounded corners
+            TextWithNumberWidget(text: getTranslated('my_focus', context)!, number: "20"),
+            TextWithNumberWidget(text: getTranslated('followers', context)!, number: "192"),
+            TextWithNumberWidget(text: getTranslated('my_friends', context)!, number: "19"),
+            TextWithNumberWidget(text: getTranslated('join', context)!, number: "2"),
+          ],
+        )),
+        SliverToBoxAdapter(
+          child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(Images.profileBg1),
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            CustomScrollView(slivers: [
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
+              margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
+              padding: const EdgeInsets.all(Dimensions.paddingSizeExtraLarge2),
+              child: Padding(
+                  padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraLarge),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 40,
-                        child: CircleAvatar(
-                          radius: 38,
-                          backgroundImage: AssetImage(Images.logo),
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset("assets/svg/fxrz.svg", height: 25),
+                          Text(
+                            'Yxxxxx',
+                            style: textRegular.copyWith(color: Colors.white),
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        width: Dimensions.paddingSizeDefault,
+                      Row(
+                        children: [
+                          Text(
+                            getTranslated('to_verify', context)!,
+                            style: textRegular.copyWith(color: Colors.white),
+                          ),
+                          const Icon(
+                            Icons.arrow_right_rounded,
+                            color: Colors.white,
+                            size: 30,
+                          )
+                        ],
+                      )
+                    ],
+                  ))),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(Dimensions.radiusDefault) // Optional: Add rounded corners
+                  ),
+              margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
+              padding: EdgeInsets.all(16.0),
+              child: IntrinsicHeight(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                                  Flexible(
+                                    child: Text(
+                                      getTranslated('women_empowerment', context)!,
+                                      style: textBold,
+                                      maxLines: 3,
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_right_rounded,
+                                    color: Colors.grey,
+                                    size: 20,
+                                  ),
+                                ]),
+                                const SizedBox(
+                                  height: Dimensions.paddingSizeExtraSmall,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "10",
+                                      style: textBold.copyWith(fontSize: Dimensions.fontSizeOverLarge),
+                                    ),
+                                    Text(
+                                      getTranslated('flowers', context)!,
+                                      style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall),
+                                    ),
+                                    SizedBox(
+                                      width: Dimensions.paddingSizeDefault,
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall, vertical: Dimensions.paddingSizeExtraExtraSmall),
+                                      decoration: BoxDecoration(
+                                        color: ColorResources.footerColor,
+                                        borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                      ),
+                                      child: Text(
+                                        getTranslated('view_all', context)!,
+                                        style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: ColorResources.failColor),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: Dimensions.paddingSizeExtraSmall,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      getTranslated('today_collection', context)!.replaceAll("NUM", "12"),
+                                      style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: ColorResources.acceptedColor),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              Image.asset(Images.loyal, width: 30, height: 30),
+                            ],
+                          )
+                        ],
                       ),
-                      Expanded(
-                        child: Column(
+                    ),
+                  ),
+                  const VerticalDivider(
+                    width: 20,
+                    thickness: 1,
+                    indent: 2,
+                    endIndent: 2,
+                    color: ColorResources.borderColor,
+                  ),
+                  Expanded(
+                      child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text("同舟号： tz78982813213"),
-                                    SizedBox(
-                                      width: Dimensions.paddingSizeExtraSmall,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                      ),
-                                      child: TagWithIcon(tagText: 'Lv.2'),
-                                    ),
-                                  ],
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, Routes.getEditProfileRoute());
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_right_rounded,
-                                      color: Colors.grey,
-                                      size: 20,
-                                    ))
-                              ],
-                            ),
-                            Text(
-                              "tothemoon",
-                              style: textBold.copyWith(fontSize: Dimensions.fontSizeExtraLarge),
-                            ),
-                            Row(
-                              children: [
-                                TagWithIcon(tagText: '隐身'),
-                                TagWithIcon(
-                                  tagText: '任务中心',
-                                  iconData: Icons.task,
-                                ),
-                                TagWithIcon(
-                                  tagText: '去主页',
-                                  iconData: Icons.home,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                  child: SizedBox(
-                height: Dimensions.paddingSizeLarge,
-              )),
-              const SliverToBoxAdapter(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-                    child: Text(
-                      "简介：这简介这简介这简介这简介这简介这简介",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    )),
-              ),
-              const SliverToBoxAdapter(
-                  child: SizedBox(
-                height: Dimensions.paddingSizeLarge,
-              )),
-              SliverToBoxAdapter(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  TextWithNumberWidget(text: getTranslated('my_focus', context)!, number: "20"),
-                  TextWithNumberWidget(text: getTranslated('followers', context)!, number: "192"),
-                  TextWithNumberWidget(text: getTranslated('my_friends', context)!, number: "19"),
-                  TextWithNumberWidget(text: getTranslated('join', context)!, number: "2"),
-                ],
-              )),
-              SliverToBoxAdapter(
-                child: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(Images.profileBg1),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
-                    padding: const EdgeInsets.all(Dimensions.paddingSizeExtraLarge2),
-                    child: Padding(
-                        padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraLarge),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SvgPicture.asset("assets/svg/fxrz.svg", height: 25),
-                                Text(
-                                  'Yxxxxx',
-                                  style: textRegular.copyWith(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  getTranslated('to_verify', context)!,
-                                  style: textRegular.copyWith(color: Colors.white),
-                                ),
-                                const Icon(
-                                  Icons.arrow_right_rounded,
-                                  color: Colors.white,
-                                  size: 30,
-                                )
-                              ],
-                            )
-                          ],
-                        ))),
-              ),
-              SliverToBoxAdapter(
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).cardColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault) // Optional: Add rounded corners
-                        ),
-                    margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
-                    padding: EdgeInsets.all(16.0),
-                    child: IntrinsicHeight(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                                        Flexible(
-                                          child: Text(
-                                            getTranslated('women_empowerment', context)!,
-                                            style: textBold,
-                                            maxLines: 3,
-                                            softWrap: true,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        const Icon(
-                                          Icons.arrow_right_rounded,
-                                          color: Colors.grey,
-                                          size: 20,
-                                        ),
-                                      ]),
-                                      const SizedBox(
-                                        height: Dimensions.paddingSizeExtraSmall,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "10",
-                                            style: textBold.copyWith(fontSize: Dimensions.fontSizeOverLarge),
-                                          ),
-                                          Text(
-                                            getTranslated('flowers', context)!,
-                                            style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall),
-                                          ),
-                                          SizedBox(
-                                            width: Dimensions.paddingSizeDefault,
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall, vertical: Dimensions.paddingSizeExtraExtraSmall),
-                                            decoration: BoxDecoration(
-                                              color: ColorResources.footerColor,
-                                              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                                            ),
-                                            child: Text(
-                                              getTranslated('view_all', context)!,
-                                              style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: ColorResources.failColor),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: Dimensions.paddingSizeExtraSmall,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            getTranslated('today_collection', context)!.replaceAll("NUM", "12"),
-                                            style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: ColorResources.acceptedColor),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Column(
-                                  children: [
-                                    Image.asset(Images.loyal, width: 30, height: 30),
-                                  ],
+                                Text(getTranslated('my_wallet', context)!, style: Theme.of(context).textTheme.bodyMedium),
+                                const Icon(
+                                  Icons.arrow_right_rounded,
+                                  color: Colors.grey,
+                                  size: 20,
                                 )
                               ],
                             ),
-                          ),
+                            SizedBox(
+                              height: Dimensions.paddingSizeExtraSmall,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "0",
+                                  style: textBold.copyWith(fontSize: Dimensions.fontSizeOverLarge),
+                                ),
+                                Text(
+                                  getTranslated('moon_coins', context)!,
+                                  style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall),
+                                ),
+                                SizedBox(
+                                  width: Dimensions.paddingSizeDefault,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: Dimensions.paddingSizeExtraSmall,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${getTranslated('today_earnings', context)!}0",
+                                  style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: ColorResources.failColor),
+                                )
+                              ],
+                            )
+                          ],
                         ),
-                        const VerticalDivider(
-                          width: 20,
-                          thickness: 1,
-                          indent: 2,
-                          endIndent: 2,
-                          color: ColorResources.borderColor,
-                        ),
-                        Expanded(
-                            child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text(getTranslated('my_wallet', context)!, style: Theme.of(context).textTheme.bodyMedium),
-                                      const Icon(
-                                        Icons.arrow_right_rounded,
-                                        color: Colors.grey,
-                                        size: 20,
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: Dimensions.paddingSizeExtraSmall,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "0",
-                                        style: textBold.copyWith(fontSize: Dimensions.fontSizeOverLarge),
-                                      ),
-                                      Text(
-                                        getTranslated('moon_coins', context)!,
-                                        style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall),
-                                      ),
-                                      SizedBox(
-                                        width: Dimensions.paddingSizeDefault,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: Dimensions.paddingSizeExtraSmall,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "${getTranslated('today_earnings', context)!}0",
-                                        style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: ColorResources.failColor),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Image.asset(Images.payment, width: 30, height: 30),
-                                ],
-                              )
-                            ],
-                          ),
-                        ))
+                        Column(
+                          children: [
+                            Image.asset(Images.payment, width: 30, height: 30),
+                          ],
+                        )
                       ],
-                    ))),
-              ),
-              SliverToBoxAdapter(
-                  child: SizedBox(
-                height: Dimensions.paddingSizeLarge,
-              )),
-              SliverToBoxAdapter(
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 7,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault) // Optional: Add rounded corners
-                      ),
-                  margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      // ListTile(
-                      //   onTap: () => Navigator.pushNamed(context, Routes.getLanguageRoute('menu')),
-                      //   leading: Image.asset(Images.language, width: 20, height: 20, color: Theme.of(context).textTheme.bodyLarge!.color),
-                      //   title: Text(getTranslated('language', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
-                      // ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          MenuTile(
-                            text: getTranslated('draft_box', context)!,
-                            icon: Icons.search,
-                          ),
-                          MenuTile(
-                            icon: Icons.thumb_up_outlined,
-                            text: getTranslated('hit_like', context)!,
-                          ),
-                          MenuTile(
-                            icon: Icons.collections_outlined,
-                            text: getTranslated('favourite', context)!,
-                          ),
-                          MenuTile(
-                            icon: Icons.mic_rounded,
-                            text: getTranslated('my_voice', context)!,
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 16.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          MenuTile(icon: Icons.featured_play_list_outlined, text: getTranslated('my_question', context)!),
-                          MenuTile(icon: Icons.notifications, text: getTranslated('my_reply', context)!),
-                          MenuTile(icon: Icons.question_mark_rounded, text: getTranslated('help_and_support', context)!),
-                          MenuTile(icon: Icons.help, text: getTranslated('entrepreneur', context)!),
-                        ],
+                    ),
+                  ))
+                ],
+              ))),
+        ),
+        SliverToBoxAdapter(
+            child: SizedBox(
+          height: Dimensions.paddingSizeLarge,
+        )),
+        SliverToBoxAdapter(
+          child: Container(
+            decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(Dimensions.radiusDefault) // Optional: Add rounded corners
+                ),
+            margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                // ListTile(
+                //   onTap: () => Navigator.pushNamed(context, Routes.getLanguageRoute('menu')),
+                //   leading: Image.asset(Images.language, width: 20, height: 20, color: Theme.of(context).textTheme.bodyLarge!.color),
+                //   title: Text(getTranslated('language', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
+                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    MenuTile(
+                      text: getTranslated('draft_box', context)!,
+                      icon: Icons.search,
+                    ),
+                    MenuTile(
+                      icon: Icons.thumb_up_outlined,
+                      text: getTranslated('hit_like', context)!,
+                    ),
+                    MenuTile(
+                      icon: Icons.collections_outlined,
+                      text: getTranslated('favourite', context)!,
+                    ),
+                    MenuTile(
+                      icon: Icons.mic_rounded,
+                      text: getTranslated('my_voice', context)!,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    MenuTile(icon: Icons.featured_play_list_outlined, text: getTranslated('my_question', context)!),
+                    MenuTile(icon: Icons.notifications, text: getTranslated('my_reply', context)!),
+                    MenuTile(icon: Icons.question_mark_rounded, text: getTranslated('help_and_support', context)!),
+                    MenuTile(icon: Icons.help, text: getTranslated('entrepreneur', context)!),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(
+            child: Container(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
                       ),
                     ],
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 7,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault) // Optional: Add rounded corners
-                          ),
-                      margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          SwitchListTile(
-                            value: Provider.of<ThemeProvider>(context).darkTheme,
-                            onChanged: (bool isActive) => Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
-                            title: Text(getTranslated('dark_theme', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
-                            activeColor: Theme.of(context).primaryColor,
-                          ),
-                          ListTile(
-                            onTap: () => Navigator.pushNamed(context, Routes.getLanguageRoute('menu')),
-                            leading: Image.asset(Images.language, width: 20, height: 20, color: Theme.of(context).textTheme.bodyLarge!.color),
-                            title: Text(getTranslated('language', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
-                          ),
-                          ListTile(
-                            onTap: () => Navigator.pushNamed(context, Routes.getLoginRoute()),
-                            leading: Image.asset(Images.logOut, width: 20, height: 20, color: Theme.of(context).textTheme.bodyLarge!.color),
-                            title: Text(getTranslated('logout', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
-                          ),
-                        ],
-                      )))
-            ]),
-          ],
-        ));
+                    borderRadius: BorderRadius.circular(Dimensions.radiusDefault) // Optional: Add rounded corners
+                    ),
+                margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    SwitchListTile(
+                      value: Provider.of<ThemeProvider>(context).darkTheme,
+                      onChanged: (bool isActive) => Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
+                      title: Text(getTranslated('dark_theme', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
+                      activeColor: Theme.of(context).primaryColor,
+                    ),
+                    ListTile(
+                      onTap: () => Navigator.pushNamed(context, Routes.getLanguageRoute('menu')),
+                      leading: Image.asset(Images.language, width: 20, height: 20, color: Theme.of(context).textTheme.bodyLarge!.color),
+                      title: Text(getTranslated('language', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
+                    ),
+                    ListTile(
+                      onTap: () => Navigator.pushNamed(context, Routes.getLoginRoute()),
+                      leading: Image.asset(Images.logOut, width: 20, height: 20, color: Theme.of(context).textTheme.bodyLarge!.color),
+                      title: Text(getTranslated('logout', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
+                    ),
+                  ],
+                )))
+      ]),
+    );
   }
 }
 
@@ -550,6 +567,158 @@ class MenuTile extends StatelessWidget {
         Icon(icon, size: 20),
         Text(text, style: textMedium.copyWith(fontSize: Dimensions.fontSizeSmall)),
       ],
+    );
+  }
+}
+
+const redOrange = Color(0xffb93303);
+
+class ProfileAppBar extends SliverPersistentHeaderDelegate {
+  final bottomHeight = 60;
+  final extraRadius = 5;
+  @override
+  Widget build(context, shrinkOffset, overlapsContent) {
+    final imageTop = -shrinkOffset.clamp(0.0, maxExtent - minExtent - bottomHeight);
+
+    final double clowsingRate = (shrinkOffset == 0 ? 0.0 : (shrinkOffset / (maxExtent - minExtent - bottomHeight))).clamp(0, 1);
+
+    final double opacity = shrinkOffset == minExtent ? 0 : 1 - (shrinkOffset.clamp(minExtent, minExtent + 30) - minExtent) / 30;
+
+    return Stack(
+      children: [
+        Positioned(
+          bottom: 0,
+          right: maxExtent / 2,
+          left: maxExtent / 2,
+          child: Transform.scale(
+            scale: 1.9 - clowsingRate,
+            alignment: Alignment.bottomCenter,
+            child: const _Avatar(),
+          ),
+        ),
+        Positioned(
+          top: imageTop,
+          left: 0,
+          right: 0,
+          child: ClipPath(
+            clipper: InvertedCircleClipper(
+              radius: (1.9 - clowsingRate) * bottomHeight / 2 + extraRadius,
+              offset: Offset(
+                maxExtent,
+                (maxExtent - bottomHeight + extraRadius / 2) + clowsingRate * bottomHeight / 2,
+              ),
+            ),
+            child: SizedBox(
+              height: maxExtent - bottomHeight,
+              child: ColoredBox(
+                color: redOrange,
+                child: Opacity(
+                  opacity: opacity,
+                  child: Image.network(
+                    'https://i.imgur.com/r6vIrtL.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+            top: MediaQuery.of(context).padding.top + Dimensions.paddingSizeDefault,
+            left: 10,
+            right: 10,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                _IconButton(
+                  icon: Icons.arrow_back,
+                ),
+                Spacer(),
+                _IconButton(
+                  icon: Icons.more_vert,
+                ),
+              ],
+            )),
+      ],
+    );
+  }
+
+  @override
+  double get maxExtent => 250;
+
+  @override
+  double get minExtent => 60;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => true;
+}
+
+class _IconButton extends StatelessWidget {
+  const _IconButton({
+    required this.icon,
+  });
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: redOrange.withOpacity(0.5),
+      ),
+      padding: const EdgeInsets.all(4),
+      child: Icon(
+        icon,
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
+class InvertedCircleClipper extends CustomClipper<Path> {
+  const InvertedCircleClipper({
+    required this.offset,
+    required this.radius,
+  });
+  final Offset offset;
+  final double radius;
+
+  @override
+  Path getClip(size) {
+    return Path()
+      ..addOval(Rect.fromCircle(
+        center: offset,
+        radius: radius,
+      ))
+      ..addRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height))
+      ..fillType = PathFillType.evenOdd;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+}
+
+class _Avatar extends StatelessWidget {
+  const _Avatar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 65,
+      width: 65,
+      // decoration: BoxDecoration(
+      //   border: Border.all(
+      //     color: Colors.blueAccent,
+      //     width: 1.5,
+      //   ),
+      //   borderRadius: BorderRadius.circular(50),
+      // ),
+      padding: const EdgeInsets.all(2),
+      child: Image.network(
+        'https://i.ibb.co/YdTh4Xx/logo.png',
+      ),
     );
   }
 }
