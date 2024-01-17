@@ -158,52 +158,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
         // ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault, vertical: Dimensions.paddingSizeSmall),
+            padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeSmall),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 37,
-                  child: CircleAvatar(
-                    radius: 35,
-                    backgroundImage: AssetImage(Images.logo),
-                  ),
+                Column(
+                  children: [
+                    Text(
+                      "tothemoon",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      "Piran, Slovenia",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: Dimensions.paddingSizeDefault,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                "tothemoon",
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                              Text(
-                                "Piran, Slovenia",
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                            ],
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, Routes.getEditProfileRoute());
-                              },
-                              icon: Icon(
-                                Icons.keyboard_arrow_right_rounded,
-                                size: 20,
-                              ))
-                        ],
-                      ),
-                    ],
-                  ),
-                )
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.getEditProfileRoute());
+                    },
+                    icon: Icon(
+                      Icons.keyboard_arrow_right_rounded,
+                      size: 20,
+                    ))
               ],
             ),
           ),
@@ -226,56 +205,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: Dimensions.paddingSizeLarge,
         )),
         SliverToBoxAdapter(
-            child: Row(
+            child: IntrinsicHeight(
+                child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            TextWithNumberWidget(text: getTranslated('my_focus', context)!, number: "20"),
-            TextWithNumberWidget(text: getTranslated('followers', context)!, number: "192"),
-            TextWithNumberWidget(text: getTranslated('my_friends', context)!, number: "19"),
-            TextWithNumberWidget(text: getTranslated('join', context)!, number: "2"),
+            Expanded(
+              child: TextWithNumberWidget(text: getTranslated('my_friends', context)!, number: "19"),
+            ),
+            const VerticalDivider(
+              width: 20,
+              thickness: 1,
+              indent: 2,
+              endIndent: 2,
+              color: ColorResources.borderColor,
+            ),
+            Expanded(
+              child: TextWithNumberWidget(text: getTranslated('my_focus', context)!, number: "20"),
+            ),
+            const VerticalDivider(
+              width: 20,
+              thickness: 1,
+              indent: 2,
+              endIndent: 2,
+              color: ColorResources.borderColor,
+            ),
+            Expanded(
+              child: TextWithNumberWidget(text: getTranslated('followers', context)!, number: "2"),
+            )
           ],
+        ))),
+
+        const SliverToBoxAdapter(
+            child: SizedBox(
+          height: Dimensions.paddingSizeLarge,
         )),
-        SliverToBoxAdapter(
-          child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Images.profileBg1),
-                  fit: BoxFit.fill,
-                ),
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
-              padding: const EdgeInsets.all(Dimensions.paddingSizeExtraLarge2),
-              child: Padding(
-                  padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraLarge),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SvgPicture.asset("assets/svg/fxrz.svg", height: 25),
-                          Text(
-                            'Yxxxxx',
-                            style: textRegular.copyWith(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            getTranslated('to_verify', context)!,
-                            style: textRegular.copyWith(color: Colors.white),
-                          ),
-                          const Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.white,
-                            size: 30,
-                          )
-                        ],
-                      )
-                    ],
-                  ))),
-        ),
         SliverToBoxAdapter(
           child: Container(
               decoration: BoxDecoration(
@@ -451,7 +414,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ))),
         ),
-        SliverToBoxAdapter(
+
+        const SliverToBoxAdapter(
             child: SizedBox(
           height: Dimensions.paddingSizeLarge,
         )),
@@ -513,6 +477,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ),
+        const SliverToBoxAdapter(
+            child: SizedBox(
+          height: Dimensions.paddingSizeLarge,
+        )),
         SliverToBoxAdapter(
             child: Container(
                 decoration: BoxDecoration(
@@ -548,7 +516,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       title: Text(getTranslated('logout', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
                     ),
                   ],
-                )))
+                ))),
+            const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: Dimensions.paddingSizeExtraLarge2,
+                )),
       ]),
     );
   }
@@ -576,6 +548,7 @@ const redOrange = Color(0xffb93303);
 class ProfileAppBar extends SliverPersistentHeaderDelegate {
   final bottomHeight = 60;
   final extraRadius = 5;
+
   @override
   Widget build(context, shrinkOffset, overlapsContent) {
     final imageTop = -shrinkOffset.clamp(0.0, maxExtent - minExtent - bottomHeight);
@@ -587,15 +560,20 @@ class ProfileAppBar extends SliverPersistentHeaderDelegate {
     return Stack(
       children: [
         Positioned(
-          bottom: 0,
-          right: maxExtent / 2,
-          left: maxExtent / 2,
-          child: Transform.scale(
-            scale: 1.9 - clowsingRate,
-            alignment: Alignment.bottomCenter,
-            child: const _Avatar(),
-          ),
-        ),
+            bottom: 0,
+            right: 20,
+            left: 44,
+            child: Row(children: [
+              Transform.scale(
+                scale: 1.9 - clowsingRate,
+                alignment: Alignment.bottomCenter,
+                child: const CircleAvatar(
+                    radius: 31,
+                    backgroundImage: NetworkImage(
+                      'https://i.imgur.com/6vYZgGu.png',
+                    )),
+              ),
+            ])),
         Positioned(
           top: imageTop,
           left: 0,
@@ -604,7 +582,7 @@ class ProfileAppBar extends SliverPersistentHeaderDelegate {
             clipper: InvertedCircleClipper(
               radius: (1.9 - clowsingRate) * bottomHeight / 2 + extraRadius,
               offset: Offset(
-                maxExtent,
+                bottomHeight / 2 + 45,
                 (maxExtent - bottomHeight + extraRadius / 2) + clowsingRate * bottomHeight / 2,
               ),
             ),
@@ -682,6 +660,7 @@ class InvertedCircleClipper extends CustomClipper<Path> {
     required this.offset,
     required this.radius,
   });
+
   final Offset offset;
   final double radius;
 
@@ -698,27 +677,4 @@ class InvertedCircleClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
-}
-
-class _Avatar extends StatelessWidget {
-  const _Avatar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 65,
-      width: 65,
-      // decoration: BoxDecoration(
-      //   border: Border.all(
-      //     color: Colors.blueAccent,
-      //     width: 1.5,
-      //   ),
-      //   borderRadius: BorderRadius.circular(50),
-      // ),
-      padding: const EdgeInsets.all(2),
-      child: Image.network(
-        'https://i.ibb.co/YdTh4Xx/logo.png',
-      ),
-    );
-  }
 }
