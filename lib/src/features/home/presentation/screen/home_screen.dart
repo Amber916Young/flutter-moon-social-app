@@ -34,6 +34,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  List<String> tags = ["Travel", "Food", "Fitness", "Technology", "Fashion", "Fashion", "Fashion"];
+  bool isTagsExpanded = true;
 
   @override
   void initState() {
@@ -187,6 +189,49 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             color: Colors.white,
             child: CustomScrollView(
               slivers: [
+                SliverToBoxAdapter(
+                  child: Row(
+                    children: [
+                      ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: (tags ?? []).length, // Number of items in the list
+                          itemBuilder: (context, index) {
+                            var tag = tags[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Chip(label: Text(tag)),
+                            );
+                          }),
+                      Spacer(),
+                      IconButton(
+                        icon: Icon(isTagsExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
+                        onPressed: () {
+                          setState(() {
+                            isTagsExpanded = !isTagsExpanded;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    height: isTagsExpanded ? 100 : 0,
+                    width: isTagsExpanded ? MediaQuery.of(context).size.width : 0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Wrap(
+                        spacing: 8.0,
+                        runSpacing: 4.0,
+                        children: tags.map((tag) {
+                          return Chip(label: Text(tag));
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
                 SliverToBoxAdapter(
                   child: Container(
                     height: 200,
