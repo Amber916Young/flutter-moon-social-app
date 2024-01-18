@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:moon/localization/language_constrants.dart';
 import 'package:moon/src/core/component/custom_app_bar.dart';
 import 'package:moon/src/core/component/custom_button.dart';
+import 'package:moon/src/core/component/custom_icon_botton.dart';
 import 'package:moon/src/core/component/custom_loading.dart';
 import 'package:moon/src/core/component/custom_snackbar.dart';
 import 'package:moon/src/core/component/custom_text_field.dart';
@@ -517,10 +518,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ))),
-            const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: Dimensions.paddingSizeExtraLarge2,
-                )),
+        const SliverToBoxAdapter(
+            child: SizedBox(
+          height: Dimensions.paddingSizeExtraLarge2,
+        )),
       ]),
     );
   }
@@ -609,11 +610,11 @@ class ProfileAppBar extends SliverPersistentHeaderDelegate {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
-                _IconButton(
+                CustomIconButton(
                   icon: Icons.arrow_back,
                 ),
                 Spacer(),
-                _IconButton(
+                CustomIconButton(
                   icon: Icons.more_vert,
                 ),
               ],
@@ -630,29 +631,6 @@ class ProfileAppBar extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => true;
-}
-
-class _IconButton extends StatelessWidget {
-  const _IconButton({
-    required this.icon,
-  });
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: redOrange.withOpacity(0.5),
-      ),
-      padding: const EdgeInsets.all(4),
-      child: Icon(
-        icon,
-        color: Colors.white,
-      ),
-    );
-  }
 }
 
 class InvertedCircleClipper extends CustomClipper<Path> {

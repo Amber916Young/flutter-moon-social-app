@@ -18,7 +18,7 @@ import 'package:moon/src/core/route/routes.dart';
 import 'package:moon/src/features/auth/data/model/userinfo_model.dart';
 import 'package:moon/src/features/auth/presentation/provider/auth_provider.dart';
 import 'package:moon/src/features/home/data/model/post_model.dart';
-import 'package:moon/src/features/home/home_post_widget.dart';
+import 'package:moon/src/features/home/presentation/widget/home_post_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:moon/src/core/component/portal_master_layout.dart';
 import 'package:moon/src/features/profile/presentation/my_friends_screen.dart';

@@ -9,6 +9,7 @@ import 'package:moon/src/core/constant/images.dart';
 import 'package:moon/src/core/helper/date_converter.dart';
 import 'package:moon/src/core/route/routes.dart';
 import 'package:moon/src/features/home/data/model/post_model.dart';
+import 'package:moon/src/features/home/presentation/widget/user_head_widget.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class HomePostWidget extends StatefulWidget {
@@ -94,27 +95,12 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListTile(
-                    enabled: false,
-                    leading: const CircleAvatar(
-                      radius: 38,
-                      backgroundImage: AssetImage(Images.logo),
-                    ),
-                    title: Text(
-                      postModel.username!,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    subtitle: Text(
-                      timePost,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    trailing: const Icon(
-                      Icons.menu,
-                      size: 20,
-                    ),
-                    selected: false,
-                    onTap: () {},
+                  UserHeaderWidget(
+                    username: postModel.username!,
+                    imageUrl: Images.logo,
+                    time: timePost,
                   ),
+
                   if ((postModel.imageUrls ?? []).isNotEmpty)
                     CarouselSlider(
                       options: CarouselOptions(height: 130),
@@ -175,21 +161,16 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                   ),
                   // Title maxline 1
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge),
-                    child: Text(
-                      postModel.title ?? "",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: textBold.copyWith(fontSize: Dimensions.fontSizeLarge),
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
+                    child: Text(postModel.title ?? "", maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.titleSmall),
                   ),
                   const SizedBox(
-                    height: Dimensions.paddingSizeDefault,
+                    height: Dimensions.paddingSizeExtraSmall,
                   ),
                   // content maxline 5
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge),
-                    child: Text(postModel.brief ?? "", maxLines: 3, overflow: TextOverflow.ellipsis, style: textMedium),
+                    padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
+                    child: Text(postModel.brief ?? "", maxLines: 3, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall),
                   ),
                   const SizedBox(
                     height: Dimensions.paddingSizeDefault,
@@ -203,10 +184,11 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                           Row(
                             children: [
                               Icon(
-                                Icons.favorite_border_outlined,
+                                Icons.favorite_rounded,
                                 color: ColorResources.failColor,
+                                size: 20,
                               ),
-                              Text((postModel.hitLikes ?? 0).toString(), style: textRegular),
+                              Text((postModel.hitLikes ?? 0).toString(), style: Theme.of(context).textTheme.labelSmall),
                             ],
                           ),
                           InkWell(
@@ -217,14 +199,17 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                               child: Row(
                                 children: [
                                   Icon(
-                                    Icons.message_outlined,
-                                    color: Theme.of(context).hintColor,
+                                    Icons.comment_rounded,
+                                    size: 20,
                                   ),
-                                  Text((postModel.comments ?? 0).toString(), style: textRegular),
+                                  Text((postModel.comments ?? 0).toString(), style: Theme.of(context).textTheme.labelSmall),
                                 ],
                               ))
                         ],
                       )),
+                  const SizedBox(
+                    height: Dimensions.paddingSizeDefault,
+                  ),
                 ],
               ),
             ),

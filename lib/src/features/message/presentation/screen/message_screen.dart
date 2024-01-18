@@ -4,7 +4,7 @@ import 'package:moon/localization/language_constrants.dart';
 import 'package:moon/src/core/component/custom_app_bar.dart';
 import 'package:moon/src/core/component/portal_master_layout.dart';
 import 'package:moon/src/features/message/data/model/chat_user.dart';
-import 'package:moon/src/features/message/widget/conversation_widget.dart';
+import 'package:moon/src/features/message/presentation/widget/conversation_widget.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({Key? key}) : super(key: key);
