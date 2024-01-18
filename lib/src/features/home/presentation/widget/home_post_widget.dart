@@ -199,7 +199,7 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                               child: Row(
                                 children: [
                                   Icon(
-                                    Icons.comment_rounded,
+                                    Icons.chat_bubble_outline_rounded,
                                     size: 20,
                                   ),
                                   Text((postModel.comments ?? 0).toString(), style: Theme.of(context).textTheme.labelSmall),
