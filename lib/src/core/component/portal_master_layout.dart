@@ -63,7 +63,7 @@ class PortalMasterLayout extends StatelessWidget {
                       showUnselectedLabels: true,
                       currentIndex: pageIndex,
                       type: BottomNavigationBarType.fixed,
-                      items: [_barItem('assets/svg/menu_icon.svg', getTranslated('home', context), 0), _barItem('assets/svg/cart_icon.svg', getTranslated('grow_up', context), 1), _barItem('assets/svg/order_icon.svg', getTranslated('market', context), 2), _barItem('assets/svg/promo_icon.svg', getTranslated('message', context), 3), _barItem('assets/svg/profile_icon.svg', getTranslated('my_profile', context), 4)],
+                      items: [_barItem(Icons.menu_book_rounded, getTranslated('home', context), 0), _barItem(Icons.video_chat_rounded, getTranslated('grow_up', context), 1), _barItem(Icons.local_mall_rounded, getTranslated('market', context), 2), _barItem(Icons.people_alt_rounded, getTranslated('message', context), 3), _barItem(Icons.person_outline_rounded, getTranslated('my_profile', context), 4)],
                       onTap: (index) {
                         navigation(index);
                       },
@@ -71,17 +71,23 @@ class PortalMasterLayout extends StatelessWidget {
                   )
               : const SizedBox()
           : const SizedBox(),
-      body: body,
+      body: SafeArea(
+        child: body,
+      ),
     );
   }
 
-  BottomNavigationBarItem _barItem(String svgPath, String? label, int index) {
+  BottomNavigationBarItem _barItem(IconData svgPath, String? label, int index) {
     return BottomNavigationBarItem(
       icon: Stack(
         clipBehavior: Clip.none,
         children: [
-          SvgPicture.asset(svgPath, color: index == pageIndex ? Theme.of(Get.context!).primaryColor : Theme.of(Get.context!).hintColor.withOpacity(0.7), height: 25),
-          index == 1
+          Icon(
+            svgPath,
+            color: index == pageIndex ? Theme.of(Get.context!).primaryColor : Theme.of(Get.context!).hintColor.withOpacity(0.7),
+          ),
+          // SvgPicture.asset(svgPath, color: index == pageIndex ? Theme.of(Get.context!).primaryColor : Theme.of(Get.context!).hintColor.withOpacity(0.7), height: 25),
+          index == 3
               ? Positioned(
                   top: -7,
                   right: -7,

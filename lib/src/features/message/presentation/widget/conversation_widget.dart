@@ -28,7 +28,7 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(widget.imageUrl),
-                    maxRadius: 30,
+                    maxRadius: 25,
                   ),
                   SizedBox(
                     width: 16,

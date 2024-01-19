@@ -22,7 +22,6 @@ import 'package:moon/src/features/home/presentation/widget/home_post_widget.dart
 import 'package:provider/provider.dart';
 import 'package:moon/src/core/component/portal_master_layout.dart';
 import 'package:moon/src/features/profile/presentation/my_friends_screen.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -35,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
   List<String> tags = ["Travel", "Food", "Fitness", "Technology", "Fashion", "Fashion", "Fashion"];
-  bool isTagsExpanded = true;
+  bool isTagsExpanded = false;
+  int active = 0;
 
   @override
   void initState() {
@@ -50,8 +50,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _tabController.dispose();
     super.dispose();
   }
-
-  int active = 0;
 
   void _showCommentPopup(BuildContext context) {
     showModalBottomSheet(
@@ -192,44 +190,52 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 SliverToBoxAdapter(
                   child: Row(
                     children: [
-                      ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: (tags ?? []).length, // Number of items in the list
-                          itemBuilder: (context, index) {
-                            var tag = tags[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Chip(label: Text(tag)),
-                            );
-                          }),
-                      Spacer(),
-                      IconButton(
-                        icon: Icon(isTagsExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
-                        onPressed: () {
-                          setState(() {
-                            isTagsExpanded = !isTagsExpanded;
-                          });
-                        },
+                      SizedBox(
+                        height: 50,
+                        width: width * .85,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: (tags ?? []).length, // Number of items in the list
+                            itemBuilder: (context, index) {
+                              var tag = tags[index];
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Chip(label: Text(tag)),
+                              );
+                            }),
                       ),
+                      SizedBox(
+                          height: 50,
+                          width: width * .15,
+                          child: IconButton(
+                            icon: Icon(isTagsExpanded ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded),
+                            onPressed: () {
+                              setState(() {
+                                isTagsExpanded = !isTagsExpanded;
+                              });
+                            },
+                          ))
                     ],
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
                     height: isTagsExpanded ? 100 : 0,
                     width: isTagsExpanded ? MediaQuery.of(context).size.width : 0,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Wrap(
-                        spacing: 8.0,
-                        runSpacing: 4.0,
-                        children: tags.map((tag) {
-                          return Chip(label: Text(tag));
-                        }).toList(),
-                      ),
-                    ),
+                    child: isTagsExpanded
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Wrap(
+                              spacing: 8.0,
+                              runSpacing: 4.0,
+                              children: tags.map((tag) {
+                                return Chip(label: Text(tag));
+                              }).toList(),
+                            ),
+                          )
+                        : const SizedBox(),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -240,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       itemCount: 3,
                       itemBuilder: (context, index) {
                         return Container(
-                          width: 200,
+                          width: 160,
                           height: 250,
                           child: Card(
                             elevation: 2,

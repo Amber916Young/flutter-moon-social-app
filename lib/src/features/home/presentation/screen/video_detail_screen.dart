@@ -114,7 +114,7 @@ class _VideoWidgetState extends State<VideoScreen> {
   @override
   Widget build(BuildContext context) {
     return PortalMasterLayout(
-        pageIndex: 3,
+        pageIndex: 2,
         showDrawer: true,
         showBottomBar: true,
         endDrawerEnableOpenDragGesture: true,
