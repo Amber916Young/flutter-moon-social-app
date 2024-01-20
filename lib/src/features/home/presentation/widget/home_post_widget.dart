@@ -2,9 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:hashtagable_v3/widgets/hashtag_text.dart';
+import 'package:hashtagable_v3/widgets/hashtag_text_field.dart';
 import 'package:moon/src/core/constant/app_color_resources.dart';
 import 'package:moon/src/core/constant/app_dimensions.dart';
-import 'package:moon/src/core/constant/app_text_styles.dart';
 import 'package:moon/src/core/constant/images.dart';
 import 'package:moon/src/core/helper/date_converter.dart';
 import 'package:moon/src/core/route/routes.dart';
@@ -79,18 +80,13 @@ class _HomePostWidgetState extends State<HomePostWidget> {
           DateTime start0 = DateConverter.convertStringToDatetime(postModel.postTime!);
           String timePost = timeago.format(start0);
           return Container(
-            margin: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              border: Border.all(color: Theme.of(context).secondaryHeaderColor, width: 1),
-              borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
-              boxShadow: [BoxShadow(color: Theme.of(context).shadowColor.withOpacity(0.2), blurRadius: 1, spreadRadius: 0)],
-            ),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.homeDetailScreen);
-              },
-              borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
+              margin: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                border: Border.all(color: Theme.of(context).secondaryHeaderColor, width: 1),
+                borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
+                boxShadow: [BoxShadow(color: Theme.of(context).shadowColor.withOpacity(0.2), blurRadius: 1, spreadRadius: 0)],
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,38 +123,7 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                     SizedBox(
                       height: Dimensions.paddingSizeDefault,
                     ),
-                  // tags
-                  Container(
-                    height: 30,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: (postModel.tags ?? []).length, // Number of items in the list
-                      itemBuilder: (context, index) {
-                        String tag = postModel.tags![index];
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall, vertical: Dimensions.paddingSizeExtraExtraSmall),
-                          decoration: BoxDecoration(
-                            color: ColorResources.refundColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                " #$tag",
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              Icon(Icons.arrow_right_rounded, color: ColorResources.refundColor),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
 
-                  SizedBox(
-                    height: Dimensions.paddingSizeSmall,
-                  ),
                   // Title maxline 1
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
@@ -168,14 +133,43 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                     height: Dimensions.paddingSizeExtraSmall,
                   ),
                   // content maxline 5
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
-                    child: Text(postModel.brief ?? "", maxLines: 3, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.homeDetailScreen);
+                    },
+                    borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
+                      child: Text(postModel.brief ?? "", maxLines: 3, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall),
+                    ),
                   ),
+
                   const SizedBox(
                     height: Dimensions.paddingSizeDefault,
                   ),
+                  // tags
+                  Container(
+                    height: 30,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: (postModel.tags ?? []).length, // Number of items in the list
+                      itemBuilder: (context, index) {
+                        String tag = "#${postModel.tags![index]} ";
+                        return HashTagText(
+                          text: tag,
+                          decoratedStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).primaryColor),
+                          basicStyle: TextStyle(fontSize: 14, color: Colors.black),
+                          onTap: (text) {
+                            print(text);
+                          },
+                        );
+                      },
+                    ),
+                  ),
 
+                  SizedBox(
+                    height: Dimensions.paddingSizeSmall,
+                  ),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge),
                       child: Row(
@@ -211,9 +205,7 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                     height: Dimensions.paddingSizeDefault,
                   ),
                 ],
-              ),
-            ),
-          );
+              ));
         });
   }
 }
