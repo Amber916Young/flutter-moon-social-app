@@ -1,3 +1,6 @@
+import 'dart:ui';
+import 'package:reorderables/reorderables.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,9 +36,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
-  List<String> tags = ["Travel", "Food", "Fitness", "Technology", "Fashion", "Fashion", "Fashion"];
   bool isTagsExpanded = false;
   int active = 0;
+  List<Chip> cards = [];
+  List<String> tags = ["Travel", "Food", "Fitness", "Technology", "Fashion", "Fashion", "Fashion"];
 
   @override
   void initState() {
@@ -43,12 +47,38 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
     _tabController = TabController(length: 3, vsync: this);
     _tabController.index = 0;
+    cards = <Chip>[
+      for (int index = 0; index < tags.length; index += 1)
+        Chip(
+          key: Key('$index'),
+          label: Text(tags[index]),
+        ),
+    ];
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  Widget proxyDecorator(Widget child, int index, Animation<double> animation) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget? child) {
+        final double animValue = Curves.easeInOut.transform(animation.value);
+        final double elevation = lerpDouble(1, 6, animValue)!;
+        final double scale = lerpDouble(1, 1.02, animValue)!;
+        return Transform.scale(
+          scale: scale,
+          child: Chip(
+            elevation: elevation,
+            label: cards[index].label,
+          ),
+        );
+      },
+      child: child,
+    );
   }
 
   void _showCommentPopup(BuildContext context) {
@@ -225,16 +255,52 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     height: isTagsExpanded ? 100 : 0,
                     width: isTagsExpanded ? MediaQuery.of(context).size.width : 0,
                     child: isTagsExpanded
-                        ? Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Wrap(
-                              spacing: 8.0,
-                              runSpacing: 4.0,
-                              children: tags.map((tag) {
-                                return Chip(label: Text(tag));
-                              }).toList(),
-                            ),
-                          )
+                        ? ReorderableWrap(
+                            spacing: 8.0,
+                            runSpacing: 4.0,
+                            padding: const EdgeInsets.all(8),
+                            children: cards,
+                            onReorder: (int oldIndex, int newIndex) {
+                              setState(() {
+                                Chip row = cards.removeAt(oldIndex);
+                                cards.insert(newIndex, row);
+                                String tag = tags.removeAt(oldIndex);
+                                tags.insert(newIndex, tag);
+                              });
+                            },
+                            onNoReorder: (int index) {
+                              //this callback is optional
+                              debugPrint('${DateTime.now().toString().substring(5, 22)} reorder cancelled. index:$index');
+                            },
+                            onReorderStarted: (int index) {
+                              //this callback is optional
+                              debugPrint('${DateTime.now().toString().substring(5, 22)} reorder started: index:$index');
+                            })
+                        // ReorderableListView(
+                        //         padding: const EdgeInsets.symmetric(horizontal: 40),
+                        //         proxyDecorator: proxyDecorator,
+                        //         onReorder: (int oldIndex, int newIndex) {
+                        //           setState(() {
+                        //             if (oldIndex < newIndex) {
+                        //               newIndex -= 1;
+                        //             }
+                        //             final String item = tags.removeAt(oldIndex);
+                        //             tags.insert(newIndex, item);
+                        //           });
+                        //         },
+                        //         children: cards,
+                        //       )
+
+                        // Padding(
+                        //         padding: const EdgeInsets.only(top: 8.0),
+                        //         child: Wrap(
+                        //           spacing: 8.0,
+                        //           runSpacing: 4.0,
+                        //           children: tags.map((tag) {
+                        //             return Chip(label: Text(tag));
+                        //           }).toList(),
+                        //         ),
+                        //       )
                         : const SizedBox(),
                   ),
                 ),

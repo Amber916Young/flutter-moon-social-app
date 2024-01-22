@@ -7,6 +7,7 @@ import 'package:moon/src/core/route/routes.dart';
 import 'package:moon/src/features/auth/presentation/screen/login_screen.dart';
 import 'package:moon/src/features/auth/presentation/screen/phone_login_screen.dart';
 import 'package:moon/src/features/home/presentation/screen/home_screen.dart';
+import 'package:moon/src/features/home/presentation/screen/post_write_screen.dart';
 import 'package:moon/src/features/message/presentation/screen/chat_screen.dart';
 import 'package:moon/src/features/message/presentation/screen/message_screen.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +59,9 @@ class RouterHelper {
   static final Handler _languageHandler = Handler(handlerFunc: (context, Map<String, dynamic> params) {
     return ChooseLanguageScreen(fromMenu: params['page'][0] == 'menu');
   });
+  static final Handler _postAddScreenHandler = Handler(
+    handlerFunc: (context, Map<String, dynamic> params) => _routeHandler(context!, PostWriteScreen()),
+  );
 
 //*******Route Define*********
   static void setupRouter() {
@@ -73,6 +77,7 @@ class RouterHelper {
     router.define(Routes.languageScreen, handler: _languageHandler, transitionType: TransitionType.fadeIn);
     router.define(Routes.messageScreen, handler: _messageScreenHandler, transitionType: TransitionType.fadeIn);
     router.define(Routes.chatMessageScreen, handler: _chatMessageScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.postAddScreen, handler: _postAddScreenHandler, transitionType: TransitionType.fadeIn);
   }
 
   static Widget _routeHandler(BuildContext context, Widget route, {bool isBranchCheck = false}) {

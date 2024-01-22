@@ -35,7 +35,7 @@ class Routes {
   static const String addAddressScreen = '/add-address';
   static const String selectLocationScreen = '/select-location';
   static const String chatScreen = '/messages';
-  static const String couponScreen = '/coupons';
+  static const String postAddScreen = '/post-add';
   static const String supportScreen = '/support';
   static const String termsScreen = '/terms';
   static const String policyScreen = '/privacy-policy';
@@ -66,7 +66,7 @@ class Routes {
   static String getProfileRoute() => profileScreen;
   static String getMessageRoute() => messageScreen;
   static String getChatMessageScreenRoute() => chatMessageScreen;
-
+  static String getPostAddRoute() => postAddScreen;
   static String getEditProfileRoute() => editProfileScreen;
 
   static String getHomeDetailScreen() => homeDetailScreen;
@@ -86,11 +86,6 @@ class Routes {
   static String getMainRoute() => homeScreen;
 
   static String getMaintainRoute() => maintain;
-
-  static String getHomeRoute({required String fromAppBar}) {
-    String appBar = fromAppBar;
-    return '$homeScreen?from=$appBar';
-  }
 
   // static String getDashboardRoute(String page) => '$dashboardScreen?page=$page';
   static String getMyFriendsScreen() => myFriendsScreen;
@@ -135,7 +130,6 @@ class Routes {
   //   String orderModel0 = base64Encode(utf8.encode(jsonEncode(orderModel)));
   //   return '$chatScreen?order=$orderModel0';
   // }
-  static String getCouponRoute() => couponScreen;
 
   static String getSupportRoute() => supportScreen;
 
