@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moon/localization/language_constrants.dart';
 import 'package:moon/main.dart';
 import 'package:moon/src/core/constant/app_text_styles.dart';
 import 'package:moon/src/core/helper/responsive_helper.dart';
-import 'package:moon/src/core/route/routes.dart';
+import 'package:moon/src/core/route/app_router.dart';
 import 'package:provider/provider.dart';
 
 class PortalMasterLayout extends StatelessWidget {
@@ -23,15 +24,25 @@ class PortalMasterLayout extends StatelessWidget {
   void navigation(index) {
     if (pageIndex == index) return;
     if (index == 0) {
-      Navigator.popAndPushNamed(Get.context!, Routes.getMainRoute());
+      GoRouter.of(
+        Get.context!,
+      ).go(RouteUri.home);
     } else if (index == 1) {
-      // Navigator.popAndPushNamed(Get.context!, Routes.getCartCheckoutViewRoute());
+      // GoRouter.of(
+      //   Get.context!,
+      // ).go(RouteUri.home);
     } else if (index == 2) {
-      Navigator.popAndPushNamed(Get.context!, Routes.getVideoRoute());
+      GoRouter.of(
+        Get.context!,
+      ).go(RouteUri.videoScreen);
     } else if (index == 3) {
-      Navigator.popAndPushNamed(Get.context!, Routes.getMessageRoute());
+      GoRouter.of(
+        Get.context!,
+      ).go(RouteUri.notification);
     } else if (index == 4) {
-      Navigator.popAndPushNamed(Get.context!, Routes.getProfileRoute());
+      GoRouter.of(
+        Get.context!,
+      ).go(RouteUri.myProfile);
     }
   }
 

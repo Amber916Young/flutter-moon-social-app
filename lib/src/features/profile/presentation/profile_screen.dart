@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moon/localization/language_constrants.dart';
 import 'package:moon/src/core/component/custom_app_bar.dart';
 import 'package:moon/src/core/component/custom_button.dart';
@@ -17,7 +18,7 @@ import 'package:moon/src/core/constant/app_text_styles.dart';
 import 'package:moon/src/core/constant/images.dart';
 import 'package:moon/src/core/helper/responsive_helper.dart';
 import 'package:moon/src/core/provider/theme_provider.dart';
-import 'package:moon/src/core/route/routes.dart';
+import 'package:moon/src/core/route/app_router.dart';
 import 'package:moon/src/features/auth/data/model/userinfo_model.dart';
 import 'package:moon/src/features/auth/presentation/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -178,7 +179,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 IconButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, Routes.getEditProfileRoute());
+                      GoRouter.of(
+                        Get.context!,
+                      ).go(RouteUri.editProfile);
                     },
                     icon: Icon(
                       Icons.keyboard_arrow_right_rounded,
@@ -507,12 +510,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       activeColor: Theme.of(context).primaryColor,
                     ),
                     ListTile(
-                      onTap: () => Navigator.pushNamed(context, Routes.getLanguageRoute('menu')),
+                      onTap: () => GoRouter.of(
+                        Get.context!,
+                      ).go(RouteUri.menu),
                       leading: Image.asset(Images.language, width: 20, height: 20, color: Theme.of(context).textTheme.bodyLarge!.color),
                       title: Text(getTranslated('language', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
                     ),
                     ListTile(
-                      onTap: () => Navigator.pushNamed(context, Routes.getLoginRoute()),
+                      onTap: () => GoRouter.of(
+                        Get.context!,
+                      ).go(RouteUri.login),
                       leading: Image.asset(Images.logOut, width: 20, height: 20, color: Theme.of(context).textTheme.bodyLarge!.color),
                       title: Text(getTranslated('logout', context)!, style: textMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
                     ),

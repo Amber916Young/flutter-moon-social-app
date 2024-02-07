@@ -2,13 +2,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hashtagable_v3/widgets/hashtag_text.dart';
 import 'package:hashtagable_v3/widgets/hashtag_text_field.dart';
+import 'package:moon/main.dart';
 import 'package:moon/src/core/constant/app_color_resources.dart';
 import 'package:moon/src/core/constant/app_dimensions.dart';
 import 'package:moon/src/core/constant/images.dart';
 import 'package:moon/src/core/helper/date_converter.dart';
-import 'package:moon/src/core/route/routes.dart';
+import 'package:moon/src/core/route/app_router.dart';
 import 'package:moon/src/features/home/data/model/post_model.dart';
 import 'package:moon/src/features/home/presentation/widget/user_head_widget.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -135,7 +137,9 @@ class _HomePostWidgetState extends State<HomePostWidget> {
                   // content maxline 5
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, Routes.homeDetailScreen);
+                      GoRouter.of(
+                        Get.context!,
+                      ).go(RouteUri.postDetailScreen);
                     },
                     borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
                     child: Padding(

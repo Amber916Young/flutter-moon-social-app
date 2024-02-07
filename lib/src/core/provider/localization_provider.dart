@@ -10,9 +10,16 @@ class LocalizationProvider extends ChangeNotifier {
   LocalizationProvider({required this.sharedPreferences, required this.dioClient}) {
     _loadCurrentLanguage();
   }
+  String _appName = 'Moon';
 
+  String get appName => _appName;
   Locale _locale = const Locale('zh', 'CN');
   Locale get locale => _locale;
+
+  void setAppTitle(String newAppName) {
+    _appName = newAppName;
+    notifyListeners();
+  }
 
   void setLanguage(Locale locale) {
     _locale = locale;

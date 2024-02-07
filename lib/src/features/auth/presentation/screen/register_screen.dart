@@ -11,7 +11,6 @@ import 'package:moon/src/core/constant/app_color_resources.dart';
 import 'package:moon/src/core/constant/app_dimensions.dart';
 import 'package:moon/src/core/constant/images.dart';
 import 'package:moon/src/core/helper/responsive_helper.dart';
-import 'package:moon/src/core/route/routes.dart';
 import 'package:moon/src/features/auth/presentation/provider/auth_provider.dart';
 import 'package:moon/src/features/auth/presentation/widget/code_picker_widget.dart';
 import 'package:provider/provider.dart';

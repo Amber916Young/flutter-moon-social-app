@@ -12,7 +12,6 @@ import 'package:moon/src/core/data/model/language_model.dart';
 import 'package:moon/src/core/helper/responsive_helper.dart';
 import 'package:moon/src/core/provider/language_provider.dart';
 import 'package:moon/src/core/provider/localization_provider.dart';
-import 'package:moon/src/core/route/routes.dart';
 import 'package:moon/src/features/language/widget/search_widget.dart';
 
 class ChooseLanguageScreen extends StatelessWidget {

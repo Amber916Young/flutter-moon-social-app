@@ -17,7 +17,6 @@ import 'package:moon/src/core/constant/app_text_styles.dart';
 import 'package:moon/src/core/constant/images.dart';
 import 'package:moon/src/core/helper/date_converter.dart';
 import 'package:moon/src/core/helper/responsive_helper.dart';
-import 'package:moon/src/core/route/routes.dart';
 import 'package:moon/src/features/auth/data/model/userinfo_model.dart';
 import 'package:moon/src/features/auth/presentation/provider/auth_provider.dart';
 import 'package:moon/src/features/home/data/model/post_model.dart';

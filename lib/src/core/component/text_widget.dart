@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moon/main.dart';
 import 'package:moon/src/core/constant/app_dimensions.dart';
 import 'package:moon/src/core/constant/app_text_styles.dart';
-import 'package:moon/src/core/route/routes.dart';
+import 'package:moon/src/core/route/app_router.dart';
 
 class TextWithNumberWidget extends StatelessWidget {
   final String text;
@@ -14,7 +15,9 @@ class TextWithNumberWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(Get.context!, Routes.getMyFriendsScreen());
+        GoRouter.of(
+          Get.context!,
+        ).go(RouteUri.friendsList);
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

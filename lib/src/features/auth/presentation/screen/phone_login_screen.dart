@@ -1,6 +1,8 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moon/localization/language_constrants.dart';
+import 'package:moon/main.dart';
 import 'package:moon/src/core/component/custom_button.dart';
 import 'package:moon/src/core/component/custom_card.dart';
 import 'package:moon/src/core/component/custom_loading.dart';
@@ -10,7 +12,7 @@ import 'package:moon/src/core/constant/app_color_resources.dart';
 import 'package:moon/src/core/constant/app_dimensions.dart';
 import 'package:moon/src/core/constant/images.dart';
 import 'package:moon/src/core/helper/responsive_helper.dart';
-import 'package:moon/src/core/route/routes.dart';
+import 'package:moon/src/core/route/app_router.dart';
 import 'package:moon/src/features/auth/presentation/provider/auth_provider.dart';
 import 'package:moon/src/features/auth/presentation/widget/code_picker_widget.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +58,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                       countryCode = value.code;
                     },
                     initialSelection: countryCode,
+                    countryFilter: const ['IE', 'CN', 'JP', 'KR'],
                     favorite: [countryCode!],
                     showDropDownButton: true,
                     padding: EdgeInsets.zero,
@@ -167,7 +170,9 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, Routes.getRegisterRoute());
+                      GoRouter.of(
+                        Get.context!,
+                      ).go(RouteUri.register);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
@@ -188,7 +193,9 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                 children: [
                   InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.getRegisterRoute());
+                        GoRouter.of(
+                          Get.context!,
+                        ).go(RouteUri.register);
                       },
                       child: Container(
                         height: 45,
@@ -205,7 +212,9 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                       )),
                   InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.getRegisterRoute());
+                        GoRouter.of(
+                          Get.context!,
+                        ).go(RouteUri.register);
                       },
                       child: Container(
                         height: 45,

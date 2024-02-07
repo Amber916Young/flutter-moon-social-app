@@ -9,17 +9,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moon/firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:moon/localization/app_localization.dart';
 import 'package:moon/src/core/constant/app_constants.dart';
 import 'package:moon/src/core/constant/app_text_styles.dart';
+import 'package:moon/src/core/helper/app_focus_helper.dart';
 import 'package:moon/src/core/helper/responsive_helper.dart';
-import 'package:moon/src/core/helper/router_helper.dart';
 import 'package:moon/src/core/provider/language_provider.dart';
-import 'package:moon/src/core/route/routes.dart';
-import 'package:moon/src/core/theme/dark_theme.dart';
-import 'package:moon/src/core/theme/light_theme.dart';
+import 'package:moon/src/core/route/app_router.dart';
 import 'package:moon/src/features/auth/presentation/provider/auth_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -100,46 +99,78 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  GoRouter? _appRouter;
+  Future<bool>? _future;
+  List<Locale> locals = [];
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        RouterHelper.setupRouter();
         FlutterSmartDialog.init();
       }
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    List<Locale> locals = [];
+  Future<bool> _getScreenDataAsync() async {
     for (var language in AppConstants.languages) {
       locals.add(Locale(language.languageCode!, language.countryCode));
     }
+    return true;
+  }
 
-    return MaterialApp(
-      initialRoute: Routes.getLoginRoute(),
-      onGenerateRoute: RouterHelper.router.generator,
-      title: AppConstants.getAppName(),
-      debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
-      navigatorObservers: [FlutterSmartDialog.observer],
-      theme: Provider.of<ThemeProvider>(context).darkTheme ? FlexThemeData.dark(scheme: FlexScheme.amber) : FlexThemeData.light(scheme: FlexScheme.amber),
-      locale: Provider.of<LocalizationProvider>(context).locale,
-      localizationsDelegates: const [
-        AppLocalization.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: locals,
-      scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.stylus, PointerDeviceKind.unknown}),
-      builder: (context, child) {
-        return FlutterSmartDialog(
-            child: Scaffold(
-          body: child!,
-        ));
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        return GestureDetector(
+          onTap: () {
+            AppFocusHelper.instance.requestUnfocus();
+          },
+          child: FutureBuilder<bool>(
+            initialData: null,
+            future: (_future ??= _getScreenDataAsync()),
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data!) {
+                return Consumer2<ThemeProvider, LocalizationProvider>(
+                  builder: (context, themeProvider, localizationProvider, child) {
+                    _appRouter ??= appRouter(navigatorKey);
+
+                    return MaterialApp.router(
+                      scaffoldMessengerKey: snackbarKey,
+                      debugShowCheckedModeBanner: false,
+                      routeInformationProvider: _appRouter!.routeInformationProvider,
+                      routeInformationParser: _appRouter!.routeInformationParser,
+                      routerDelegate: _appRouter!.routerDelegate,
+                      supportedLocales: locals,
+                      localizationsDelegates: const [
+                        AppLocalization.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                      ],
+                      locale: localizationProvider.locale,
+                      onGenerateTitle: (context) => localizationProvider.appName,
+                      theme: themeProvider.darkTheme ? FlexThemeData.dark(scheme: FlexScheme.amber) : FlexThemeData.light(scheme: FlexScheme.amber),
+                      builder: (context, child) {
+                        return ScaffoldMessenger(
+                          key: scaffoldMessengerKey,
+                          child: FlutterSmartDialog(
+                              child: Scaffold(
+                            body: child!,
+                          )),
+                        );
+                      },
+                    );
+                  },
+                );
+              }
+
+              return const SizedBox.shrink();
+            },
+          ),
+        );
       },
     );
   }
@@ -148,6 +179,8 @@ class _MyAppState extends State<MyApp> {
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 late AndroidNotificationChannel channel;
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final snackbarKey = GlobalKey<ScaffoldMessengerState>();
+final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class MyHttpOverrides extends HttpOverrides {
   @override

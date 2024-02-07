@@ -11,11 +11,11 @@ import 'package:moon/src/core/constant/app_dimensions.dart';
 import 'package:moon/src/core/constant/app_text_styles.dart';
 import 'package:moon/src/core/constant/images.dart';
 
-class HomeDetailScreen extends StatefulWidget {
-  const HomeDetailScreen({Key? key}) : super(key: key);
+class PostDetailScreen extends StatefulWidget {
+  const PostDetailScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeDetailScreenState createState() => _HomeDetailScreenState();
+  _PostDetailScreenState createState() => _PostDetailScreenState();
 }
 
 class ImageModel {
@@ -25,7 +25,7 @@ class ImageModel {
   ImageModel({required this.image, required this.id});
 }
 
-class _HomeDetailScreenState extends State<HomeDetailScreen> {
+class _PostDetailScreenState extends State<PostDetailScreen> {
   late bool isClick = true;
   late List<ImageModel> galleryItems = [
     ImageModel(image: "https://i.imgur.com/r6vIrtL.png", id: 1),
