@@ -102,7 +102,7 @@ class AppConstants {
   static const String cookiesManagement = 'cookies_management';
 
   static List<LanguageModel> languages = [
-    LanguageModel(imageUrl: Images.china, languageName: '简体中文', countryCode: 'CN', languageCode: 'zh'),
     LanguageModel(imageUrl: Images.unitedKingdom, languageName: 'English', countryCode: 'US', languageCode: 'en'),
+    LanguageModel(imageUrl: Images.china, languageName: '简体中文', countryCode: 'CN', languageCode: 'zh'),
   ];
 }

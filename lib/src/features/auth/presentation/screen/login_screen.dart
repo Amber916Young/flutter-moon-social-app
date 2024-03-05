@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               CustomTextField(
                 hintText: getTranslated('login_hint', context),
-                isShowBorder: false,
+                isShowBorder: true,
                 isPassword: false,
                 labelText: getTranslated('login_hint', context),
                 isShowSuffixIcon: true,
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: Dimensions.paddingSizeSmall),
               CustomTextField(
                 hintText: getTranslated('password_hint', context),
-                isShowBorder: false,
+                isShowBorder: true,
                 isPassword: true,
                 labelText: getTranslated('password', context)!,
                 isShowSuffixIcon: true,
